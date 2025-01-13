@@ -1,0 +1,118 @@
+<resources>
+    <string name="app_name">MusicBuddy</string>
+
+    <string name="text_tracks">Tracks</string>
+    <string name="text_playLists">PlayLists</string>
+    <string name="text_albums">Albums</string>
+    <string name="text_artist">Artists</string>
+    <string name="text_genres">Genres</string>
+    <string name="text_unknown">Unknown</string>
+
+    <string name="text_number_count">01</string>
+    <string name="text_song_name">Song Name</string>
+    <string name="text_album_name">Album Name</string>
+    <string name="text_playlist_name">PlayList Name</string>
+    <string name="text_album_count">0 Albums</string>
+    <string name="text_artist_name">Artist Name</string>
+    <string name="text_genre_name">Genres</string>
+
+    <string name="text_create_playlist">Create PlayList</string>
+
+    <string name="text_add_to_playlist">Add to PlayList</string>
+    <string name="text_edit_playlist_name">Edit PlayList Name</string>
+    <string name="text_delete_playlist">Delete PlayList</string>
+    <string name="text_edit_info">Edit Info</string>
+    <string name="text_delete">Delete</string>
+    <string name="text_toolbar">Toolbar</string>
+    <string name="text_play_next">Play Next</string>
+    <string name="text_add_to_queue">Add to Queue</string>
+    <string name="text_set_as_ringtone">Set as Ringtone</string>
+
+    <string name="text_share">Share</string>
+    <string name="text_settings">Settings</string>
+    <string name="text_search">Search</string>
+    <string name="text_features">Features</string>
+    <string name="text_equalizer">Features</string>
+
+    <string name="text_hyphen">-</string>
+    <string name="text_song_duration">Song Duration</string>
+    <string name="text_time_count">00:00</string>
+    <string name="text_track_count">0 Tracks</string>
+    <string name="text_play">Play</string>
+    <string name="text_pause">Pause</string>
+    <string name="text_previous">Previous</string>
+    <string name="text_next">Next</string>
+
+    <string name="text_done">Done</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_undo">Undo</string>
+
+    <string name="text_empty_space">" "</string>
+
+    <string name="text_default">Default</string>
+    <string name="text_title">Title</string>
+    <string name="text_duration">Duration</string>
+    <string name="text_ascending">Ascending</string>
+    <string name="text_sort_by">Sort By</string>
+
+    <string name="text_music">Music</string>
+    <string name="text_video">Video</string>
+    <string name="text_album">Album</string>
+    <string name="text_songs">Songs</string>
+    <string name="text_shuffle">Shuffle</string>
+
+    <string name="text_song">Song(s)</string>
+    <string name="text_track">Track(s)</string>
+
+    <string name="text_now_playing">Now Playing</string>
+    <string name="font_regular">poppins_regular</string>
+
+    <string name="text_no_favourites">Currently there is no favourites</string>
+    <string name="text_no_playlist">Currently there is no PlayList\'s</string>
+    <string name="text_playlist_not_added">Not able to add PlayList\'s</string>
+    <string name="text_playlist_already_exist">PlayList already exist</string>
+    <string name="text_name_not_empty">Name not be empty</string>
+
+    <string name="text_playlist_created">PlayList created!</string>
+
+    <string name="text_select_songs">Choose song(s) to Add</string>
+    <string name="text_unable_to_add_songs">unable to add songs!</string>
+    <string name="text_no_artist">seems there is no artist list(s)</string>
+    <string name="text_no_album">seems there is no album(s) present</string>
+    <string name="text_no_genres">seems there is no genre(s) present</string>
+    <string name="text_song_added">song(s) added!</string>
+    <string name="text_song_already_present">"song(s) already there!"</string>
+    <string name="text_song_removed">Song(s) removed!</string>
+    <string name="text_no_songs">currently there is no Song(s) available</string>
+    <string name="text_no_songs_play">sorry, no song(s) to play!</string>
+
+    <string name="text_ringtone_not_set">Unable to set as Ringtone!</string>
+
+    <string name="text_something_went_wrong">Something went wrong!</string>
+
+    <string name="text_unable_to_share">Unable to share,</string>
+    <string name="text_file_not_found">file not found</string>
+    <string name="text_unable_to_delete">Unable to delete file</string>
+
+    <string name="text_songs_selected">song(s) selected</string>
+
+    <string name="app_default_playlist">MB PlayList</string>
+    <string name="text_not_able_to_delete_playlist">Default PlayList, can\'t delete</string>
+
+    <string name="text_app_settings">This app requires permission to use awesome features. Grant them in app settings.</string>
+    <string name="text_required_permission">Required Permissions</string>
+    <string name="text_take_to_settings">Take me to Settings</string>
+    <string name="text_go_to_settings">click here to open settings</string>
+
+    <!--Prod Ads-->
+    <string name="app_ad_app_id">ca-app-pub-2276852215819476~6678270715</string>
+    <string name="app_banner_ad_id">ca-app-pub-2276852215819476/7741625279</string>
+
+    <!--Prod Ads-->
+    <string name="app_banner_interstitial_ad_id">ca-app-pub-2276852215819476/6428543605</string>
+
+    <!--Test Ads-->
+    <!--    <string name="app_banner_ad_id">ca-app-pub-3940256099942544/1033173712</string>-->
+<!--        <string name="app_ad_app_id">ca-app-pub-2276852215819476~8946513891</string>-->
+
+</resources>

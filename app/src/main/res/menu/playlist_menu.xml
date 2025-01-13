@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/actionPlay"
+        android:title="@string/text_play" />
+
+    <item
+        android:id="@+id/editPlayListName"
+        android:title="@string/text_edit_playlist_name" />
+
+    <item
+        android:id="@+id/addToPlaylist"
+        android:title="@string/text_add_to_playlist" />
+
+    <item
+        android:id="@+id/playNext"
+        android:title="@string/text_play_next" />
+    <item
+        android:id="@+id/share"
+        android:title="@string/text_share" />
+    <item
+        android:id="@+id/delete"
+        android:title="@string/text_delete_playlist" />
+    <item
+        android:id="@+id/addToQueue"
+        android:title="@string/text_add_to_queue" />
+</menu>

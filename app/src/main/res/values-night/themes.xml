@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.MusicBuddy" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="colorSecondaryVariant">@color/colorAccent</item>
+        <item name="colorOnSecondary">@color/colorAccent</item>
+
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">@color/tab_background</item>
+
+        <!-- Tab layout background -->
+        <item name="tabBackground">@color/tab_background</item>
+
+        <!-- Optional: Enable edge-to-edge content -->
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+</resources>

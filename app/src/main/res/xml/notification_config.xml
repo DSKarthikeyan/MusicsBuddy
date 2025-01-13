@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<notification xmlns:android="http://schemas.android.com/apk/res/android">
+    <channel
+        android:id="@+id/music_channel"
+        android:name="Music Player Channel" />
+</notification>

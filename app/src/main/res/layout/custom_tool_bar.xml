@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_item_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:padding="@dimen/_6sdp"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.6">
+
+        <ImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_toolbar"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_weight="0.4"
+        android:gravity="end">
+
+        <ImageView
+            android:id="@+id/imageViewSort"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_sort" />
+
+        <ImageView
+            android:id="@+id/imageViewSearch"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_search" />
+    </LinearLayout>
+</LinearLayout>

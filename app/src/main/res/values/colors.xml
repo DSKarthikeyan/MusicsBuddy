@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/white</color>
+    <color name="colorAccent">@color/light_green</color>
+    <color name="app_background">#E8EBF1</color>
+    <color name="grey">#A4AAB7</color>
+    <color name="light_green">#44AC68</color>
+    <color name="light_grey">#EDEDF1</color>
+    <color name="white">#FFFFFF</color>
+    <color name="light_white">#F9F9FA</color>
+    <color name="black">#171C26</color>
+    <color name="app_text_color">@color/white</color>
+    <color name="mid_gray">#6C7689</color>
+    <color name="dark">#3E4045</color>
+    <color name="light_dark">#727575</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="text_notification_color">@color/dark</color>
+    <color name="tab_background">@color/light_green</color>
+</resources>
