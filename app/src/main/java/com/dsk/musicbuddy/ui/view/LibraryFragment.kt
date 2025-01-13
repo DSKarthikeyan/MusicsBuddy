@@ -32,17 +32,16 @@ class LibraryFragment : Fragment() {
     private var _binding: ActivityAudioBinding? = null
     private val binding get() = _binding!!
 
-//    private val playerViewModel: PlaylistViewModel by viewModels {
-//        GenericViewModelFactory { PlaylistViewModel(requireActivity().application as MusicBuddyApplication) }
-//    }
-
     private val musicLibraryViewModel: MusicPlayerViewModel by viewModels {
-        GenericViewModelFactory { MusicPlayerViewModel((requireActivity().application as MusicBuddyApplication).applicationContext) }
+        GenericViewModelFactory {
+            MusicPlayerViewModel((requireActivity().application as MusicBuddyApplication).applicationContext)
+        }
     }
 
     private var musicService: MusicService? = null
     private var isBound = false
-    private lateinit var songListAdapter : SongListAdapter
+    private lateinit var songListAdapter: SongListAdapter
+    private lateinit var currentMusicBar: View
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -63,13 +62,6 @@ class LibraryFragment : Fragment() {
         bindMusicService()
     }
 
-    private fun bindMusicService() {
-        Intent(requireContext(), MusicService::class.java).also { intent ->
-            requireActivity().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-            isBound = true
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         bindMusicService()
@@ -84,68 +76,68 @@ class LibraryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        setupObservers()
+        setupCurrentMusicBar()
+    }
 
-        val currentMusicBar: View? = activity?.findViewById(R.id.currentMusicBar)
-        val playPauseImageView: ImageView? = currentMusicBar?.findViewById(R.id.imageViewPause)
-        val songNameTextName: TextView? = currentMusicBar?.findViewById(R.id.textViewSongName)
-        val albumNameTextView: TextView? = currentMusicBar?.findViewById(R.id.textViewAlbumName)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        unbindMusicService()
+        _binding = null
+    }
 
+    private fun bindMusicService() {
+        Intent(requireContext(), MusicService::class.java).also { intent ->
+            requireActivity().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+            isBound = true
+        }
+    }
+
+    private fun unbindMusicService() {
+        if (isBound) {
+            requireActivity().unbindService(serviceConnection)
+            isBound = false
+        }
+    }
+
+    private fun setupRecyclerView() {
+        currentMusicBar = activity?.findViewById(R.id.currentMusicBar)!!
         songListAdapter = SongListAdapter(
             onSongClick = { song ->
                 musicLibraryViewModel.playSong(song)
                 currentMusicBar?.visibility = View.VISIBLE
             },
-            onDeleteSong = { song ->
-                showDeleteSongDialog(song)
-            },
-            onAddToPlaylist = { song ->
-                handleAddToPlaylist(song)
-            },
-            editPlaylistName = { song ->
-//                editPlaylistName(song, requireContext())
-            }
+            onDeleteSong = { song -> showDeleteSongDialog(song) },
+            onAddToPlaylist = { song -> handleAddToPlaylist(song) },
+            editPlaylistName ={ song ->  editPlaylistName(song, requireContext())}
         )
 
         binding.recyclerViewAudio.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = songListAdapter
         }
+    }
 
+    private fun setupObservers() {
         musicLibraryViewModel.songList.observe(viewLifecycleOwner) { songs ->
-            if (songs.isNotEmpty()) {
-                songListAdapter.submitList(songs)
-            } else {
-                binding.textViewNoDataPlayList.visibility = View.VISIBLE
-                currentMusicBar?.visibility = View.GONE
-            }
+            binding.textViewNoDataPlayList.visibility = if (songs.isEmpty()) View.VISIBLE else View.GONE
+            songListAdapter.submitList(songs)
         }
 
         musicLibraryViewModel.currentSong.observe(viewLifecycleOwner) { song ->
-            if (song == null) {
-                currentMusicBar?.visibility = View.GONE
-            } else {
-                currentMusicBar?.visibility = View.VISIBLE
-                songNameTextName?.text = song.title
-                albumNameTextView?.text = song.artist
-                playPauseImageView?.setImageResource(
-                    if (musicLibraryViewModel.isPlaying()) R.drawable.ic_pause_white
-                    else R.drawable.ic_play_white
-                )
-            }
+            updateCurrentMusicBar(song)
         }
 
         musicLibraryViewModel.isPlaying.observe(viewLifecycleOwner) { isPlaying ->
-            if (isPlaying == null) {
-                currentMusicBar?.visibility = View.GONE
-            } else {
-                playPauseImageView?.setImageResource(
-                    if (isPlaying) R.drawable.ic_pause_white
-                    else R.drawable.ic_play_white
-                )
-            }
+            updatePlayPauseIcon(isPlaying)
         }
+    }
 
-        playPauseImageView?.setOnClickListener {
+    private fun setupCurrentMusicBar() {
+        val playPauseImageView = currentMusicBar.findViewById<ImageView>(R.id.imageViewPause)
+
+        playPauseImageView.setOnClickListener {
             if (musicLibraryViewModel.isPlaying()) {
                 musicLibraryViewModel.pauseSong()
             } else {
@@ -154,13 +146,22 @@ class LibraryFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        if (isBound) {
-            requireActivity().unbindService(serviceConnection)
-            isBound = false
+    private fun updateCurrentMusicBar(song: Song?) {
+        currentMusicBar.visibility = if (song == null) View.GONE else View.VISIBLE
+
+        if (song != null) {
+            currentMusicBar.findViewById<TextView>(R.id.textViewSongName).text = song.title
+            currentMusicBar.findViewById<TextView>(R.id.textViewAlbumName).text = song.artist
         }
-        _binding = null
+    }
+
+    private fun updatePlayPauseIcon(isPlaying: Boolean?) {
+        val playPauseImageView = currentMusicBar.findViewById<ImageView>(R.id.imageViewPause)
+        isPlaying?.let {
+            playPauseImageView.setImageResource(
+                if (it) R.drawable.ic_pause_white else R.drawable.ic_play_white
+            )
+        }
     }
 
     private fun showDeleteSongDialog(song: Song) {
@@ -175,27 +176,27 @@ class LibraryFragment : Fragment() {
             .show()
     }
 
-//    private fun editPlaylistName(song: Song, context: Context) {
-//        val input = EditText(context).apply { hint = "Enter new playlist name" }
-//        Log.d("DsK","editPlaylistName")
-//        AlertDialog.Builder(context)
-//            .setTitle("Edit Playlist Name")
-//            .setView(input)
-//            .setPositiveButton("Save") { _, _ ->
-//                val newPlaylistName = input.text.toString().trim()
-//                if (newPlaylistName.isNotEmpty()) {
+    private fun editPlaylistName(song: Song, context: Context) {
+        val input = EditText(context).apply { hint = "Enter new playlist name" }
+        Log.d("DsK","editPlaylistName")
+        AlertDialog.Builder(context)
+            .setTitle("Edit Playlist Name")
+            .setView(input)
+            .setPositiveButton("Save") { _, _ ->
+                val newPlaylistName = input.text.toString().trim()
+                if (newPlaylistName.isNotEmpty()) {
 //                    playerViewModel.renamePlaylist(song.id, newPlaylistName)
-//                } else {
-//                    Toast.makeText(context, "Playlist name cannot be empty", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//            .setNegativeButton("Cancel", null)
-//            .show()
-//    }
+                } else {
+                    Toast.makeText(context, "Playlist name cannot be empty", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
 
     private fun handleAddToPlaylist(song: Song) {
 //        val playlists = playerViewModel.playlists.value
-
+//
 //        if (playlists.isNullOrEmpty()) {
 //            showCreatePlaylistDialog(song)
 //        } else {
@@ -210,7 +211,7 @@ class LibraryFragment : Fragment() {
 //            .setTitle("Select Playlist")
 //            .setItems(playlistNames) { _, which ->
 //                val selectedPlaylist = playlists[which]
-//                playerViewModel.addSongToPlaylist(selectedPlaylist.id, song)
+////                playerViewModel.addSongToPlaylist(selectedPlaylist.id, song)
 //                Toast.makeText(
 //                    requireContext(),
 //                    "Added to ${selectedPlaylist.name}",

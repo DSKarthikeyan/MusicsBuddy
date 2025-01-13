@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dsk.musicbuddy.R
 import com.dsk.musicbuddy.data.model.Song
 import com.dsk.musicbuddy.databinding.AudioDetailViewBinding
@@ -49,25 +50,26 @@ class SongListAdapter(
             binding.textViewSongName.text = song.title
             binding.textViewAlbumName.text = song.artist
             binding.textViewSongDuration.text = formatDuration(song.duration)
-            binding.textViewSongCount.text = songCount.toString() // Set song count
+//            binding.textViewSongCount.text = songCount.toString() // Set song count
 
             // Set album art or fallback image
-//            try {
-//                if (song.albumArtUri != null) {
-//                    Glide.with(binding.imageViewSongURI.context)
-//                        .load(song.albumArtUri)
-//                        .placeholder(R.drawable.ic_album) // Placeholder image
-//                        .error(R.drawable.ic_album) // Fallback image on error
-//                        .into(binding.imageViewSongURI)
-//                } else {
-//                    binding.imageViewSongURI.setImageResource(R.drawable.ic_album)
-//                }
-//            } catch (e: Exception) {
-//                Log.e("SongListAdapter", "Failed to load album art: ${e.localizedMessage}")
-//                binding.imageViewSongURI.setImageResource(R.drawable.ic_album)
-//            }
+            try {
+                if (song.albumArtUri != null) {
+                    Log.d("SongListAdapter", "Failed to load songUri ${song.albumArtUri}")
+                    Glide.with(binding.imageViewSongURI.context)
+                        .load(song.albumArtUri)
+                        .placeholder(R.drawable.ic_album) // Placeholder image
+                        .error(R.drawable.ic_album) // Fallback image on error
+                        .into(binding.imageViewSongURI)
+                } else {
+                    Log.e("SongListAdapter", "Failed to load album art: ${song.albumArtUri}")
+                    binding.imageViewSongURI.setImageResource(R.drawable.ic_album)
+                }
+            } catch (e: Exception) {
+                Log.e("SongListAdapter", "Failed to load album art: ${e.localizedMessage}")
+                binding.imageViewSongURI.setImageResource(R.drawable.ic_album)
+            }
 
-            // Handle options click (e.g., show delete/add to playlist options)
             // Handle options click (show popup menu)
             binding.imageViewOptions.setOnClickListener { view ->
                 showPopupMenu(view, song, binding.root.context)

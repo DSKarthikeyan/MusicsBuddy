@@ -14,7 +14,7 @@
     <color name="mid_gray">#6C7689</color>
     <color name="dark">#3E4045</color>
     <color name="light_dark">#727575</color>
-    <color name="transparent">@android:color/transparent</color>
+    <color name="transparent">#00000000</color>
     <color name="text_notification_color">@color/dark</color>
     <color name="tab_background">@color/light_green</color>
 </resources>
